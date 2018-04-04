@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script src="web3.min.js"></script>
+    <script>
+      window.addEventListener('load',function(){
+        if (typeof web3 !== 'undefined') {
+          document.body.appendChild(document.createTextNode("found web3 -- "));
+          window.web3 = new Web3(web3.currentProvider);
+          console.log(window.web3)
+          window.web3.version.getNetwork(function(err,network){
+            document.body.appendChild(document.createTextNode("network:"+network+" -- "));
+            window.web3.eth.getAccounts((err,accounts)=>{
+              if(!accounts[0]){
+                document.body.appendChild(document.createTextNode("no account, unlock metamask?"));
+              }else{
+                document.body.appendChild(document.createTextNode("account:"+accounts[0]+""));
+              }
+              setTimeout(()=>{
+                this.web3Ready()
+              },3000)
+            })
+          })
+        }else{
+          document.write("No Web3 Found")
+        }
+      })
+    </script>
+  </body>
+</html>
